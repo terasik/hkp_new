@@ -43,10 +43,12 @@ class HkpLog:
  
 class HkpDefs:
   """
-  init some defaults
+  some defaults
   """
-  def __init__(self):
-    self.kpdb_def='kdbx/uut.kdbx'
-    self.host_def='myhost'
-    self.sub_cmd_def='show'
+  kpdb_def='kdbx/uut.kdbx'
+  host_def='myhost'
+  sub_cmd_def='show'
+  silent=False
+  debug=False
+  readonly=False
 

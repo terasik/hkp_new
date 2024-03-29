@@ -16,6 +16,9 @@ class HkpOpts:
     self.opts_parser=opts_parser
     self.opts=None
 
+  def _add_common_args(self, subparser):
+    
+
   def _init_subparsers(self, opts_parser):
     """initialisiere sub parser"""
     subparsers=opts_parser.add_subparsers(title='aktionen')

@@ -8,17 +8,19 @@ from configs import HkpLog, HkpDefs
   
 
 class Hkp(HkpDefs):
+  """ hauptklasse für das hkp projekt """
 
   def __init__(self, **kwargs):
+    """ init hkp objekt """
     # bearbeite logging parameter
     # ...
-    super().__init__()
     self.o_log=HkpLog()
     self.sub_cmd=kwargs.get("sub_cmd", self.sub_cmd_def)
     l_log=logging.getLogger("hkp_init")
     l_log.info("initialisiere hkp")
 
   def run(self):
+    """ funktion die alles zum laufen bringt"""
     logging.info(f"ja du hast den anfang geschafft. sub cmd: {self.sub_cmd}")
     
 

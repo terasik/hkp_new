@@ -1,15 +1,20 @@
-from defaults import defaults
+""" 
+modul zum handeln von keepas
+"""
+import logging
 
-class kpdb(defaults):
+class kpdb:
   """
   handle keepass files
   """
-  def __init__(self):
-    super().__init__()
-
+  def __init__(self, kpdb=None):
+    
+    
 
   def open_kpdb(self):
-    self.logger.info(f"open kpdb {self.kpdb}")
+    """ funktion zum öffnen der keepass """
 
+  def create_ro_kopy(self):
+    """ funktion zur erstellen der readonly kopie """
     
 
