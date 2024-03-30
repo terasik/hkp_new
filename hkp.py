@@ -21,7 +21,7 @@ class Hkp(HkpDefs):
 
   def run(self):
     """ funktion die alles zum laufen bringt"""
-    logging.info(f"ja du hast den anfang geschafft. sub cmd: {self.sub_cmd}")
+    logging.info("ja du hast den anfang geschafft. sub cmd: %s", self.sub_cmd)
     
 
 if __name__ == '__main__':

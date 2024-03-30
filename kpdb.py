@@ -2,12 +2,13 @@
 modul zum handeln von keepas
 """
 import logging
+from configs import HkpDefs
 
 class kpdb:
   """
   handle keepass files
   """
-  def __init__(self, kpdb=None):
+  def __init__(self, kpdb=None, readonly=False):
     
     
 

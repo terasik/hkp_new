@@ -6,6 +6,7 @@ modul zum einlesen/bearbeiten der kommandozeilenargumente
 import argparse
 import argcomplete
 from version import version
+from configs import HkpDefs
 
 class HkpOpts:
   """ klasse zum einlesen der arg optionen"""
@@ -17,11 +18,15 @@ class HkpOpts:
     self.opts=None
 
   def _add_common_args(self, subparser):
+    """ füge gemeinsame optionen einem parser hinzu """
+    # debug Option
+    subparser.add_argument("-d", "--debug", help="gib mir mehr", action="store_true", default=HkpDefs.debug)
+    subparser.add_argument('-k', '--kpdb', required=False, help='pfad zu keepass datei', metavar="<KDBX>", default=HkpDefs.kpdb)
     
 
   def _init_subparsers(self, opts_parser):
     """initialisiere sub parser"""
-    subparsers=opts_parser.add_subparsers(title='aktionen')
+    subparsers=opts_parser.add_subparsers(title='subcmds')
     self._init_show_subparser(subparsers)
     self._init_inter_subparser(subparsers)
     argcomplete.autocomplete(opts_parser)
@@ -30,15 +35,15 @@ class HkpOpts:
     """init subparser für aktion show"""
     p_show=subparsers.add_parser('show', help="show aktion", aliases=["she"])
     p_show.add_argument('hosts', metavar="HOSTS", nargs='+', help="zeige user/password daten für diese hosts")
-    p_show.add_argument('-k', '--kpdb', required=True, help='pfad zu keepass datei', metavar="KDBX")
     p_show.set_defaults(sub_cmd="show")
+    self._add_common_args(p_show)
 
   def _init_inter_subparser(self, subparsers):
     """init subparser für aktion inter"""
     p_inter=subparsers.add_parser('interactive', help="inter aktion", aliases=["inter"])
     p_inter.add_argument('-r', '--readonly', action='store_true', help='nur lesender zugriff')
-    p_inter.add_argument('-k', '--kpdb', required=True, help='pfad zu keepass datei', metavar="<KDBX>")
     p_inter.set_defaults(sub_cmd="interactive")
+    self._add_common_args(p_inter)
      
   def parse_opts(self):
     """parse cmd argumente"""
