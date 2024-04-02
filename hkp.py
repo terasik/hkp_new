@@ -7,7 +7,7 @@ from optsargs import HkpOpts
 from configs import HkpLog, HkpDefs
   
 
-class Hkp(HkpDefs):
+class Hkp:
   """ hauptklasse für das hkp projekt """
 
   def __init__(self, **kwargs):
@@ -15,7 +15,7 @@ class Hkp(HkpDefs):
     # bearbeite logging parameter
     # ...
     self.o_log=HkpLog()
-    self.sub_cmd=kwargs.get("sub_cmd", self.sub_cmd_def)
+    self.sub_cmd=kwargs.get("sub_cmd", HkpDefs.sub_cmd)
     l_log=logging.getLogger("hkp_init")
     l_log.info("initialisiere hkp")
 
