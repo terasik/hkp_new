@@ -16,8 +16,7 @@ class Hkp:
     # ...
     self.o_log=HkpLog()
     self.sub_cmd=kwargs.get("sub_cmd", HkpDefs.sub_cmd)
-    l_log=logging.getLogger("hkp_init")
-    l_log.info("initialisiere hkp")
+    logging.info("initialisiere hkp")
 
   def run(self):
     """ funktion die alles zum laufen bringt"""
