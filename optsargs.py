@@ -7,7 +7,7 @@ import argparse
 import argcomplete
 from version import version
 from configs import HkpDefs
-from .subcmds import show
+from subcmds.show import HkpShowCmd
 
 class HkpOpts:
   """ klasse zum einlesen der arg optionen"""
@@ -38,6 +38,7 @@ class HkpOpts:
     p_show.add_argument('hosts', metavar="HOSTS", nargs='+', help="zeige user/password daten für diese hosts")
     p_show.set_defaults(sub_cmd="show")
     p_show.set_defaults(readonly=True)
+    p_show.set_defaults(cmd_class=HkpShowCmd)
     self._add_common_args(p_show)
 
   def _init_inter_subparser(self, subparsers):

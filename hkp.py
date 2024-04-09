@@ -15,12 +15,18 @@ class Hkp:
     # bearbeite logging parameter
     # ...
     self.o_log=HkpLog()
-    self.sub_cmd=kwargs.get("sub_cmd", HkpDefs.sub_cmd)
     logging.info("initialisiere hkp")
+    self.sub_cmd=kwargs.get("sub_cmd", HkpDefs.sub_cmd)
+    cmd_class=kwargs.get("cmd_class")
+    logging.info("ja du hast den anfang geschafft. sub cmd: %s", self.sub_cmd)
+    logging.info("lade cmd class")
+    self.cmd_obj=cmd_class(**kwargs)
+    
 
   def run(self):
     """ funktion die alles zum laufen bringt"""
-    logging.info("ja du hast den anfang geschafft. sub cmd: %s", self.sub_cmd)
+    logging.info("mal schauen ob diese funktion benötigt wird")
+    self.cmd_obj.run()
     
 
 if __name__ == '__main__':

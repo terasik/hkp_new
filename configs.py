@@ -24,7 +24,7 @@ class HkpLog:
     """ konfig console handler """
     log_stream_handler=logging.StreamHandler()
     log_stream_handler.setLevel(logging.INFO)
-    log_form=logging.Formatter('%(asctime)s %(levelname)s [%(module)s %(funcName)s %(name)s] %(message)s')
+    log_form=logging.Formatter('%(asctime)s %(levelname)s [%(module)-5s %(funcName)-10s] %(message)s')
     log_stream_handler.setFormatter(log_form)
     self.log_handlers.append(log_stream_handler)
 
