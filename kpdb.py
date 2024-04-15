@@ -6,6 +6,7 @@ from configs import HkpDefs
 from exceptions import KpdbError 
 from helpers import gen_random_string
 
+
 class Kpdb:
   """
   handle keepass files
