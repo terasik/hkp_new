@@ -1,0 +1,58 @@
+from pykeepass import PyKeePass
+
+a=PyKeePass("test.kdbx", "abc"
+>>> for e in a.entries: 
+...     print(e.path, e.title)
+... 
+['uut', 'Beispieleintrag'] Beispieleintrag
+['uut', 'Beispieleintrag #2'] Beispieleintrag #2
+['uut', 'buba', 'mini'] mini
+['uut', 'buba', 'fukaq'] fukaq
+['uut',
+ 'buba', 'o net', 'utit'] utit
+['uut', 'tst', 'oiuz', 'trf'] trf
+['Recycle Bin', 'mini (2024-04-15 22:48:25)'] mini (2024-04-15 22:48:25)
+>>> for g in a.groups: 
+...     print(g.path, g.name)
+... 
+[] Database
+['uut'] uut
+['uut', 'buba'] buba
+['uut', 'buba', 'tam gde'] tam gde
+['uut', 'buba', 'o net'] o net
+['uut', 'tst'] tst
+['uut', 'tst', 'oiuz'] oiuz
+['Recycle Bin'] Recycle Bin
+>>> a.find_entries_by_path("buba")
+>>> a.find_entries_by_path(["buba"], regex=true)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'true' is not defined. Did you mean: 'True'?
+>>> a.find_entries_by_path(["buba"], regex=True)
+>>> a.find_entries_by_path(["uut", "buba"], regex=True)
+>>> a.find_entries_by_path(["uut", "buba", "mini"], regex=True)
+Entry: "uut/buba/mini (reta uzt)"
+>>> a.find_entries_by_path(["uut", "buba", "mini"], regex=True).notes
+>>> a.find_entries_by_path(["uut", "buba", "mini"], regex=True).username
+'reta uzt'
+>>> a.find_entries_by_path(["uut", "buba", "min"], regex=True).username
+'reta uzt'
+>>> a.find_entries_by_path(["uut", "buba", "min"]).username
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'NoneType' object has no attribute 'username'
+>>> a.find_entries_by_path(["uut", "buba", "min"], regex=True).username
+'reta uzt'
+>>> a.find_entries_by_path(["ut", "bubA", "min"], regex=True).username
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'NoneType' object has no attribute 'username'
+>>> a.find_entries_by_path(["ut", "bub", "min"], regex=True).username
+'reta uzt'
+>>> a.find_entries_by_path(["ut", "bubA", "min"], regex=True, flags=i).username
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'i' is not defined. Did you mean: 'id'?
+>>> a.find_entries_by_path(["ut", "bubA", "min"], regex=True, flags="i").username
+'reta uzt'
+
