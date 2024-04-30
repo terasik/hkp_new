@@ -26,7 +26,7 @@ class Hkp:
 
   def run(self):
     """ funktion die alles zum laufen bringt"""
-    logging.info("mal schauen ob diese funktion benötigt wird")
+    logging.info("run Forest run")
     self.cmd_obj.run()
     
 
