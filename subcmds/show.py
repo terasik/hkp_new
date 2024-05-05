@@ -21,7 +21,7 @@ class HkpShowCmd:
     """ hauptfunktion die aufgerufen wird """
     logging.info("kpdb=%s, hosts=%s, ro=%s", self.kpdb, self.hosts, self.ro)
     self.kpdb_obj.open_kpdb()
-    #self.kpdb_obj.create_ro_copy()
+    self.kpdb_obj.close_kpdb()
 
   #def _get_opts_dict(self, opts_vars):
   #  """ funktion die dict zurückliefert """

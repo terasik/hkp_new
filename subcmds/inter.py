@@ -8,6 +8,43 @@ sys.path.append("..")
 from kpdb import Kpdb
 
 
+class InterLoop(cmd.Cmd):
+  """ command loop """
+  prompt="> "
+  intro="interaktive keepass konsole"
+
+  entries=["uzt", "agf jl", "jgj"]
+  groups=["bvfm", "hz", "öklml zg"]
+
+  def do_cd(self, line):
+    "wechsle ins verzeichnis"
+    print(f"wechsle ins {line} verzeichnis")
+
+  def complete_cd(self,text, line, begidx, endidx):
+    if not text:
+      completions=self.groups[:]
+    else:
+      completions=[c for c in self.groups if c.startswith(text)]
+    return completions
+
+  def complete_ls(self,text, line, begidx, endidx):
+    choices=self.entries+self.groups
+    if not text:
+      completions=choices[:]
+    else:
+      completions=[c for c in choices if c.startswith(text)]
+    return completions
+
+  def do_ls(self, line):
+    "liste etwas auf"
+    print(f"liste {line} auf")
+
+  def do_EOF(self, line):
+    """ ende """
+    print("beende interaktive konsole")
+    return True
+  
+
 class HkpInterCmd:
   """ klasse für inter aktion """
   def __init__(self, **kwargs):
@@ -21,7 +58,9 @@ class HkpInterCmd:
     """ hauptfunktion die aufgerufen wird """
     logging.info("kpdb=%s, ro=%s", self.kpdb, self.ro)
     self.kpdb_obj.open_kpdb()
-    #self.kpdb_obj.create_ro_copy()
+    InterLoop().cmdloop()
+    self.kpdb_obj.close_kpdb()
+    
 
   #def _get_opts_dict(self, opts_vars):
   #  """ funktion die dict zurückliefert """

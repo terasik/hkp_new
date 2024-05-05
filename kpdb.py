@@ -2,6 +2,7 @@
 modul zum handeln von keepass
 """
 import logging
+import os
 import re
 from configs import HkpDefs
 from exceptions import KpdbError 
@@ -26,6 +27,14 @@ class Kpdb:
       raise KpdbError("kpdb ist nichts")
     if self.readonly:
       self.kpdb=self.create_ro_copy()
+
+  def close_kpdb(self):
+    if self.readonly:
+      try:
+        logging.info("lösche ro kpdb %s..", self.kpdb)
+        os.unlink(self.kpdb)
+      except Exception as _exc:
+        logging.error("löschen von ro kpdb %s nicht möglich", self.kpdb)
 
   def open_kpdb(self, passwd="abc"):
     """ funktion zum öffnen der keepass """
