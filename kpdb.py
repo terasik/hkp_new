@@ -23,6 +23,7 @@ class Kpdb:
     self.readonly=readonly
     # pykeepass objekt
     self.pykp=None
+    self.pwd="/"
     if not self.kpdb:
       raise KpdbError("kpdb ist nichts")
     if self.readonly:
@@ -63,8 +64,9 @@ class Kpdb:
       if ignore_case:
         return self.pykp.find_groups(path=path, regex=True, flags="i")
       else:
-        return self.pykp.find_groups(path=path, regex=True, flags="i")
+        return self.pykp.find_groups(path=path, regex=True)
       
     else:
       return None
+
 
