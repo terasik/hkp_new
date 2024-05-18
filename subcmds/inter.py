@@ -1,6 +1,8 @@
 """
 modul für bearbeitung der inter aktion
+    readline.set_completer(self.completer)
 """
+import readline
 import logging
 import sys
 import cmd
@@ -15,15 +17,21 @@ class InterLoop(cmd.Cmd):
   intro="interaktive keepass konsole"
 
   entries=["uzt", "agf jl", "jgj"]
-  groups=["bvfm", "hz", "öklml zg"]
+  #groups=["bvfm", "hz", "öklml zg"]
 
   def __init__(self, kpdb):
     super().__init__()
+    readline.parse_and_bind("tab: complete")
+    readline.set_completer_delims(" \n\t=")
     logging.info("kpdb ist %s", kpdb.kpdb)
     logging.info("pwd ist %s", kpdb.kpdb)
     self.kpdb=kpdb
+    self.groups=["/"+"/".join(g.path) for g in self.kpdb.pykp.groups if g]
+    #self.groups=["/bvfm", "hz/uz", "öklml zg", "/bt/z", "/zt te/tr", "/zh"]
+    logging.info("gruppen: %s",self.groups)
 
-  def resolve_path(self, pwd, path):
+  def resolve_path(self, path=None):
+    pwd=self.kpdb.pwd
     if not path: return pwd
     else:
       path_new=pwd
@@ -54,12 +62,17 @@ class InterLoop(cmd.Cmd):
   def do_cd(self, line):
     "wechsle ins verzeichnis"
     print(f"wechsle ins {line} verzeichnis")
+    #for g in groups:
+    #  print(g)
+    res_path=self.resolve_path(line)
+    print(f"aufgelöster pfad {res_path}")
 
   def complete_cd(self,text, line, begidx, endidx):
+    groups=self.groups
     if not text:
-      completions=self.groups[:]
+      completions=groups[:]
     else:
-      completions=[c for c in self.groups if c.startswith(text)]
+      completions=[c for c in groups if c.startswith(text)]
     return completions
 
   def complete_ls(self,text, line, begidx, endidx):
