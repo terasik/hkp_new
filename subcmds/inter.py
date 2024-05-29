@@ -24,7 +24,7 @@ class InterLoop(cmd.Cmd):
     readline.parse_and_bind("tab: complete")
     readline.set_completer_delims(" \n\t=")
     logging.info("kpdb ist %s", kpdb.kpdb)
-    logging.info("pwd ist %s", kpdb.kpdb)
+    logging.info("pwd ist %s", kpdb.pwd)
     self.kpdb=kpdb
     self.groups=["/"+"/".join(g.path) for g in self.kpdb.pykp.groups if g]
     #self.groups=["/bvfm", "hz/uz", "öklml zg", "/bt/z", "/zt te/tr", "/zh"]
@@ -59,16 +59,24 @@ class InterLoop(cmd.Cmd):
       else:
         return "/"+"/".join(path_new_spl)
 
+  def emptyline(self):
+    pass
+
   def do_cd(self, line):
     "wechsle ins verzeichnis"
     print(f"wechsle ins {line} verzeichnis")
     #for g in groups:
     #  print(g)
     res_path=self.resolve_path(line)
+    self.kpdb.pwd=res_path
     print(f"aufgelöster pfad {res_path}")
 
   def complete_cd(self,text, line, begidx, endidx):
-    groups=self.groups
+    #groups=self.groups
+    if text.startswith("/"):
+      groups=self.kpdb.get_groups_from_root()
+    else:
+      groups=self.kpdb.get_groups_from_pwd()
     if not text:
       completions=groups[:]
     else:

@@ -54,19 +54,27 @@ class Kpdb:
       raise KpdbError(f"erstellen der kpdb kopie nicht möglich: {_exc}")
     return f"{self.kpdb}.{rnd_str}"
 
+  def get_groups_from_root(self):
+    return ["/"+"/".join(g.path) for g in self.pykp.groups if g]
+
+  def get_groups_from_pwd(self):
+    group=self.find_group_by_path(self.pwd)
+    return ["/".join(g.path) for g in group.subgroups if g]
+
+    
+
   def find_group_by_path(self, path=None, ignore_case=True):
     """ finde gruppe anhand vom pfad """
-    if path:
+    if not path:
+      return self.pykp.root_group
+    else:
       typename_path=type(path).__name__
       if typename_path=="str":
         path=[x for x in re.split("/+", path) if x]
-      logging.info("path=%s", path)
+      #logging.info("path=%s", path)
       if ignore_case:
         return self.pykp.find_groups(path=path, regex=True, flags="i")
       else:
         return self.pykp.find_groups(path=path, regex=True)
-      
-    else:
-      return None
 
 
